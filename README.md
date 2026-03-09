@@ -14,14 +14,14 @@ An AI-powered investing research vault. Use with [Claude Code](https://docs.anth
 
 That's it. The `CLAUDE.md` file configures Claude as your investing analyst automatically.
 
-**Try it:** Ask Claude to "summarize the AAPL research" — it'll read the pre-filled example and give you a rundown.
+**Try it:** Type `/research TSLA` and watch Claude pull 5 years of SEC filings, build the research folder, and run a full DCF — all from one command.
 
 ### Tier 2: Explore the vault (10 minutes)
 
 1. Install [Obsidian](https://obsidian.md) (free)
 2. Open this folder as a vault: `File > Open folder as vault`
 3. Browse the structure:
-   - `research/AAPL/` — Pre-filled example showing what a completed research note looks like
+   - `research/` — Your research folder. Run `/research TSLA` to generate your first dossier.
    - `research/_TEMPLATE.md` — Start here when researching a new company
    - `portfolio/` — Track your holdings and watchlist
    - `decisions/` — Decision journal for buy/sell/hold reasoning
@@ -43,13 +43,22 @@ This vault includes Claude Code skills (slash commands) that automate common res
 
 **Try it:** Run `claude` and type `/research MSFT` to generate a full research package.
 
-### SEC EDGAR Integration
+### Python Dependencies
 
-The skills fetch real financial data from SEC EDGAR (free, no API key needed). You just need Python with `requests`:
+The skills fetch financial data from SEC EDGAR and live market prices from Yahoo Finance. Install the dependencies:
 
 ```bash
-pip install requests
+pip install -r requirements.txt
 ```
+
+Or individually:
+
+```bash
+pip install requests yfinance
+```
+
+- **`requests`** — SEC EDGAR API calls (fundamentals, filings)
+- **`yfinance`** — Live stock price, market cap, and EV (sourced from Yahoo Finance, clearly labelled in output)
 
 ---
 
