@@ -82,6 +82,8 @@ When setting up a new company folder, create:
 │   └── insights.md
 ├── earnings/
 │   └── YYYY-QX.md
+├── thesis-checks/
+│   └── YYYY-MM-DD.md
 ├── valuation.md
 └── news.md
 ```

@@ -37,6 +37,8 @@ research/{TICKER}/
     insights.md        # Analytical observations from earnings
   earnings/
     YYYY-QX.md         # Quarterly earnings analysis
+  thesis-checks/
+    YYYY-MM-DD.md      # Periodic thesis validation snapshots
   valuation.md         # DCF, comps, fair value range
   news.md              # News & events log
 ```
