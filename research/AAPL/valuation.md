@@ -1,156 +1,107 @@
 # AAPL — Valuation
 
-*Last updated: 2026-03-07*
-*Share price: ~$258 | Market Cap: ~$3.7T | Shares: ~14.7B*
+*Fundamentals: SEC EDGAR 10-K filings. Market data: Yahoo Finance (2026-03-12).*
+*Last updated: 2026-03-12*
 
 ---
 
-## Current Multiples
+## Current Market Data
 
-| Multiple | Trailing | Forward (FY2026E) | 5-Year Avg |
-| -------- | -------: | ----------------: | ---------: |
-| P/E | ~35x | ~28x | ~28x |
-| EV/EBITDA | ~27x | ~23x | ~22x |
-| P/FCF | ~37x | ~30x | ~27x |
-| P/S | ~8.5x | ~7.5x | ~7x |
-| P/B | ~50x | — | ~40x |
+| Metric                       | Value               | Source              |
+| ---------------------------- | ------------------- | ------------------- |
+| Stock Price                  | $260.81             | Yahoo Finance       |
+| Shares Outstanding (diluted) | ~15,005M            | SEC EDGAR FY2025    |
+| Market Cap                   | $3,833,366M         | Yahoo Finance       |
+| Enterprise Value             | $3,852,590M         | Yahoo Finance       |
+| Net Debt (LTD - Cash)        | $54,744M            | SEC EDGAR FY2025    |
 
-*Note: P/B is distorted by massive buybacks reducing book value. Not a meaningful valuation metric for Apple.*
+## Trailing Multiples
 
-**Assessment:** Apple trades at a premium to its 5-year averages on most metrics. The market is pricing in the AI upgrade cycle and continued margin expansion. At ~35x trailing earnings, there is limited margin of safety if growth disappoints.
+*Price and EV from Yahoo Finance (2026-03-12). Fundamentals from SEC EDGAR.*
+
+| Metric            | FY2025 Value   |         Multiple |
+| ----------------- | -------------: | ---------------: |
+| Revenue           |    $416,161M   | 9.3x EV/Rev     |
+| Operating Income  |    $133,050M   | 29.0x EV/EBIT   |
+| Net Income (GAAP) |    $112,010M   | 34.2x P/E       |
+| EPS Diluted       |         $7.46  | 35.0x P/E        |
+| CFO               |    $111,482M   | 34.4x P/CFO     |
 
 ---
 
 ## DCF Analysis
 
-### Base Case Assumptions
+*Computed using EDGAR fundamentals. All values in $M unless noted.*
+*Inputs: base revenue $416,161M (FY2025), net debt $54,744M, 15,005M diluted shares*
+*D&A: 2.9% of revenue | CapEx: 2.8% of revenue (3-year average from EDGAR)*
 
-```
-# DCF Parameters (for use with tools/dcf_calculator.py)
+### Scenario Assumptions
 
-ticker = "AAPL"
-base_fcf = 98_767          # FY2025 FCF ($M)
-growth_rates = {
-    "year_1": 0.12,         # FY2026: AI cycle + Services ramp
-    "year_2": 0.10,         # FY2027: Continued momentum
-    "year_3": 0.08,         # FY2028: Growth normalization
-    "year_4": 0.07,         # FY2029: Steady state
-    "year_5": 0.06,         # FY2030: Mature growth
-}
-terminal_growth = 0.03      # 3% perpetuity growth
-discount_rate = 0.10        # 10% WACC
-shares_outstanding = 14_700  # Millions (current)
-net_debt = 31_610           # $M (FY2025)
-```
+| Parameter                  | Base Case | Bull Case | Bear Case |
+| -------------------------- | --------: | --------: | --------: |
+| Revenue Growth (Yr 1-3)    |  5%/5%/4% |  8%/8%/6% |  2%/2%/1% |
+| Revenue Growth (Yr 4-5)    |     4%/3% |     6%/5% |     1%/1% |
+| Terminal Growth Rate       |      3.5% |      4.0% |      2.5% |
+| EBIT Margin (Yr 1 -> Yr 5) |   32%-33% |   33%-36% |   30%-28% |
+| WACC                       |       10% |        8% |       12% |
+| Tax Rate                   |       21% |       20% |       22% |
+| Exit Multiple (EBITDA)     |       22x |       26x |       16x |
 
-### DCF Output
+### Projected Free Cash Flow ($M)
 
-| Year | FCF ($M) | PV of FCF ($M) |
-| ---- | -------: | -------------: |
-| FY2026 | $110,619 | $100,563 |
-| FY2027 | $121,681 | $100,563 |
-| FY2028 | $131,415 | $98,744 |
-| FY2029 | $140,614 | $96,019 |
-| FY2030 | $149,051 | $92,544 |
+| Year  |  Base FCF |  Bull FCF |  Bear FCF |
+| ----- | --------: | --------: | --------: |
+| Yr 1  |  $106,533 |  $114,611 |   $95,509 |
+| Yr 2  |  $111,860 |  $123,780 |   $97,419 |
+| Yr 3  |  $118,219 |  $135,323 |   $94,982 |
+| Yr 4  |  $124,908 |  $147,805 |   $95,932 |
+| Yr 5  |  $128,655 |  $159,777 |   $93,412 |
+| **PV of FCFs** | **$381,111** | **$465,402** | **$290,348** |
+| Terminal Value (perpetuity) | $1,272,010 | $2,827,279 |  $571,890 |
+| Terminal Value (exit mult.) | $2,506,672 | $3,941,977 | $1,251,452 |
 
-| Component | Value |
-| --------- | ----: |
-| PV of FCF (Years 1-5) | ~$488B |
-| Terminal Value (PV) | ~$1,323B |
-| Enterprise Value | ~$1,811B |
-| Less: Net Debt | ($32B) |
-| Equity Value | ~$1,779B |
-| **Fair Value / Share** | **~$121** |
+### Implied Intrinsic Value
 
-### Sensitivity Table (Fair Value per Share)
+| Method                        |    Base Case |   Bull Case |   Bear Case |
+| ----------------------------- | -----------: | ----------: | ----------: |
+| EV (perpetuity)               | $1,653,121M  | $3,292,681M |   $862,239M |
+| EV (exit mult.)               | $2,887,783M  | $4,407,379M | $1,541,800M |
+| **Price/share (perpetuity)**  |  **$106.52** | **$215.79** |  **$53.82** |
+| **Price/share (exit mult.)**  |  **$188.81** | **$290.08** |  **$99.10** |
 
-| Discount Rate \ Terminal Growth | 2.0% | 2.5% | 3.0% | 3.5% | 4.0% |
-| ------------------------------- | ---: | ---: | ---: | ---: | ---: |
-| **8.0%** | $179 | $202 | $233 | $276 | $340 |
-| **9.0%** | $141 | $155 | $174 | $199 | $233 |
-| **10.0%** | $114 | $123 | $134 | $149 | $169 |
-| **11.0%** | $94 | $100 | $108 | $117 | $129 |
-| **12.0%** | $79 | $83 | $89 | $95 | $103 |
+### Sensitivity: Implied Price — WACC vs Terminal Growth Rate (Base Case, Perpetuity Method)
 
----
+| WACC \ g  |    1.5% |    2.0% |    2.5% |    3.0% |
+| --------- | ------: | ------: | ------: | ------: |
+| **7%**    | $136.35 | $148.25 | $162.78 | $180.95 |
+| **8%**    | $114.04 | $122.12 | $131.67 | $143.13 |
+| **9%**    |  $97.74 | $103.53 | $110.20 | $117.99 |
+| **10%**   |  $85.32 |  $89.63 |  $94.51 | $100.09 |
 
-## Scenario Analysis
+### Sensitivity: Implied Price — WACC vs Exit Multiple (Base Case)
 
-### Bull Case — $180/share (WACC 9%, Terminal 3.5%)
-
-- AI supercycle drives iPhone revenue acceleration to +10-15% for 2 years
-- Services reaches $130B+ by FY2028 at 75%+ margins
-- FCF grows 12-15% annually through FY2028
-- Buybacks reduce share count by 3% annually
-- Gross margin reaches 50%+
-
-### Base Case — $134/share (WACC 10%, Terminal 3.0%)
-
-- Moderate iPhone growth (+5-7% annually)
-- Services grows 12-15% annually, hitting $120B by FY2028
-- FCF grows 6-8% annually
-- Margins expand modestly (gross margin ~48-49%)
-- Continued $90B+/year buybacks
-
-### Bear Case — $89/share (WACC 12%, Terminal 2.5%)
-
-- AI cycle disappoints — iPhone replacement cycles elongate further
-- Google search deal reduced/eliminated (lose $10-15B in high-margin revenue)
-- China revenue declines 10-15% on Huawei competition + geopolitical risk
-- EU DMA and DOJ remedies impair App Store economics
-- FCF stagnates at ~$95-100B
+| WACC \ Mult |     10x |     12x |     15x |     18x |
+| ----------- | ------: | ------: | ------: | ------: |
+| **7%**      | $110.73 | $128.17 | $154.33 | $180.48 |
+| **8%**      | $106.15 | $122.80 | $147.77 | $172.73 |
+| **9%**      | $101.81 | $117.70 | $141.55 | $165.39 |
+| **10%**     |  $97.68 | $112.87 | $135.65 | $158.43 |
 
 ---
 
-## Comparable Companies
+## Valuation Notes
 
-| Company | P/E (TTM) | EV/EBITDA | P/FCF | Revenue Growth | Net Margin |
-| ------- | --------: | --------: | ----: | -------------: | ---------: |
-| **AAPL** | **~35x** | **~27x** | **~37x** | **+6.4%** | **26.9%** |
-| MSFT | ~35x | ~25x | ~38x | +16.0% | 36.0% |
-| GOOGL | ~24x | ~18x | ~28x | +14.0% | 27.0% |
-| AMZN | ~42x | ~18x | ~30x | +11.0% | 9.0% |
-| META | ~28x | ~20x | ~30x | +22.0% | 35.0% |
-| Samsung | ~15x | ~8x | ~12x | +10.0% | 10.0% |
+- **The DCF suggests AAPL is overvalued at $260.81 relative to fundamental cash flows.** The bull case perpetuity method ($216) is still well below market, though the exit multiple bull case ($290) now justifies the current price with the lower 8% WACC. Base and bear cases remain far below market, confirming that today's price embeds very optimistic assumptions.
 
-*Note: Comparables are approximate as of early 2026. Apple's premium reflects its capital return program, ecosystem moat, and perceived safety.*
+- **The widened WACC spread (8% bull / 12% bear) amplifies the valuation range.** The bull-to-bear spread on the perpetuity method is now $54-$216 (was $61-$171), reflecting greater sensitivity to cost-of-capital assumptions. The terminal value dominates (>70% of EV), so even small WACC changes have outsized effects — the sensitivity table shows a range of $85 to $181 per share just from varying WACC and terminal growth.
 
-**Observation:** Apple trades at a premium P/E to most mega-cap peers despite having the slowest revenue growth. The premium is justified by unmatched FCF generation, the buyback program, and the AI upgrade cycle narrative — but it leaves less room for error.
+- **Apple's valuation premium reflects qualitative factors** that are hard to capture in a DCF: the ecosystem moat, capital return discipline, brand durability, and services growth optionality. The market applies a "quality premium" to Apple that goes beyond near-term cash flow projections.
+
+- **Services segment deserves separate consideration.** Services (~25% of revenue, ~70%+ gross margins) would trade at a much higher multiple standalone. A sum-of-parts approach would value Services at 30-40x earnings and Products at 15-20x, potentially justifying a higher blended value than the unified DCF suggests.
+
+- **Key swing factor: revenue growth trajectory.** If Apple Intelligence triggers a multi-year upgrade supercycle and services monetization accelerates, the bull case becomes more plausible. If smartphone saturation wins out, the bear case is in play.
 
 ---
 
-## Fair Value Discussion
-
-**Confidence level: Medium**
-
-The DCF analysis consistently suggests Apple is overvalued at ~$258, with base case fair value around $134 and even the bull case only reaching ~$180. However, DCF models have historically undervalued Apple because:
-
-1. **Buybacks are not captured.** Apple retiring 2-3% of shares annually means per-share value grows faster than total company value. Over 5 years, this adds ~15% to per-share fair value.
-2. **Optionality is not captured.** New product categories (Vision Pro, automotive), new services, India expansion — these have real but hard-to-model value.
-3. **Quality premium.** The market has persistently assigned Apple a premium multiple because of its predictability, cash generation, and perceived safety.
-
-A more realistic approach: apply a reasonable P/E to normalized FY2026 earnings.
-- Normalized EPS: ~$9.00-9.50 (assuming ~15% growth on $7.46 FY2025 + buyback boost)
-- Fair P/E range: 25-30x (growth-adjusted, accounting for quality)
-- **Fair value range: $225-$285**
-
-At ~$258, Apple is roughly fairly valued if the AI cycle plays out and margins continue expanding. It offers limited upside and limited downside — a "compounder at fair price" rather than a deep value opportunity.
-
----
-
-## Historical Valuation Context
-
-| Metric | Current | 5Y Low | 5Y High | 5Y Avg |
-| ------ | ------: | -----: | ------: | -----: |
-| P/E | ~35x | ~22x | ~40x | ~28x |
-| EV/EBITDA | ~27x | ~17x | ~32x | ~22x |
-| Dividend Yield | ~0.4% | ~0.4% | ~0.7% | ~0.6% |
-
-Apple is trading near the upper end of its 5-year range. Previous peaks (~40x P/E) occurred during the 5G cycle in 2020-2021. A reversion to the 5-year average (~28x) on FY2026 EPS of ~$9.25 would imply ~$259 — essentially the current price.
-
----
-
-*Note: Apple completed a 4:1 stock split in August 2020. All historical per-share data has been adjusted for the split.*
-
-*Verified: yes*
-*Source: 10-K FY2025, Q1 FY2026 Earnings Release, SEC EDGAR, Apple Investor Relations*
+*Fundamentals: SEC EDGAR 10-K filings | Market data: Yahoo Finance (2026-03-12)*
+*Not investment advice. Always verify figures before making any investment decision.*

@@ -324,7 +324,7 @@ from dcf_calculator import UnleveredDCF
 # Use the last 3-year revenue CAGR as the anchor for base case
 # Bull case = base + ~4pp in early years; Bear case = base - ~4pp
 # Steady-state margins should reflect the company's trajectory and sector norms
-# WACC: use 10% base, 9% bull, 11% bear as defaults — adjust for company risk profile
+# WACC: use 10% base, 8% bull, 12% bear as defaults — adjust for company risk profile
 # Terminal growth: 3.5% base (reasonable long-run GDP+inflation assumption)
 # Exit multiple: use a multiple appropriate for the sector (tech: 20-25x EBITDA; retail: 10-15x)
 
@@ -341,7 +341,7 @@ scenarios = {
     "bull": dict(
         revenue_growth=[g_bull_yr1, g_bull_yr1, g_bull_yr2, g_bull_yr2, g_bull_yr3],
         ebit_margin=[m_bull_yr1, m_bull_yr2, m_bull_yr3, m_bull_yr4, m_bull_yr5],
-        wacc=0.09,
+        wacc=0.08,
         terminal_growth=0.040,
         exit_multiple=25,
         tax_rate=0.20,
@@ -349,7 +349,7 @@ scenarios = {
     "bear": dict(
         revenue_growth=[g_bear_yr1, g_bear_yr1, g_bear_yr2, g_bear_yr2, g_bear_yr3],
         ebit_margin=[m_bear_yr1, m_bear_yr2, m_bear_yr3, m_bear_yr4, m_bear_yr5],
-        wacc=0.11,
+        wacc=0.12,
         terminal_growth=0.025,
         exit_multiple=15,
         tax_rate=0.22,

@@ -40,6 +40,8 @@ This vault includes Claude Code skills (slash commands) that automate common res
 | `/bear-case [TICKER]` | Generate a structured contrarian analysis |
 | `/compare [T1] [T2]` | Side-by-side comparison of two companies |
 | `/portfolio-review` | Review your portfolio for thesis drift and concentration risk |
+| `/ingest` | Ingest external research (analyst reports, articles) into company folders |
+| `/query` | Query across all stored research to answer investing questions |
 
 **Try it:** Run `claude` and type `/research MSFT` to generate a full research package.
 
