@@ -16,6 +16,8 @@ Fetch and analyze the latest quarterly earnings for the given ticker, update the
 3. Read `research/{TICKER}/overview.md` to understand the current thesis.
 4. Read `research/_SCHEMA.md` for formatting conventions.
 
+**EDGAR Data Fetching:** See `research/_EDGAR-HELPERS.md` for the standard CIK lookup and XBRL fetch pattern used in Steps 1-2.
+
 ## Step 1: Fetch Company CIK
 
 ```python
@@ -119,27 +121,62 @@ Read the current thesis from `overview.md` and assess:
 - **Action:** None / Update thesis / Reassess position
 ```
 
-## Step 4: Update Financials
+## Step 4: Update Financials (Incremental)
 
-Append the new quarter's data to the relevant financials files:
-- Add a note at the top of `financials/income-statement.md` referencing the latest quarter
-- If the quarter is Q4 (full year), update the annual data row
+This step ADDS the new quarter's data to existing financials tables. **Do not overwrite existing data — append new columns/rows.**
 
-## Step 5: Thesis Drift Check
+### 4a. Income Statement (`financials/income.md`)
 
-Compare the earnings against the thesis in `overview.md`:
-- Read the "Bull Case" and "Bear Case" sections
-- Check if any bull case items were validated or invalidated
-- Check if any bear case risks materialized
-- If there is meaningful drift, add a note to the bottom of `overview.md`:
+1. Read the existing `research/{TICKER}/financials/income.md`.
+2. Add a new quarterly column to the table with the following fields from EDGAR XBRL data:
+   - Revenue
+   - Cost of Revenue / COGS
+   - Gross Profit
+   - Operating Income
+   - Net Income
+   - EPS (Diluted)
+3. Insert the new column in chronological order (most recent quarter on the right).
+4. If the quarter is Q4 (10-K filing), also add or update the full-year annual row/column with the 10-K annual totals.
 
-```markdown
----
-### Thesis Update Log
-- **{YYYY}-Q{X}:** [Brief note on thesis impact]
-```
+### 4b. Balance Sheet (`financials/balance.md`)
 
-## Step 6: Summary
+1. Read the existing `research/{TICKER}/financials/balance.md`.
+2. Add a new quarterly column with the latest balance sheet snapshot:
+   - Total Assets
+   - Total Liabilities
+   - Total Stockholders' Equity
+   - Cash & Cash Equivalents (+ Short-Term Investments if available)
+   - Total Debt (Short-Term + Long-Term)
+3. Preserve all prior quarter columns — this is a point-in-time snapshot, so each quarter's data stands on its own.
+
+### 4c. Cash Flow Statement (`financials/cashflow.md`)
+
+1. Read the existing `research/{TICKER}/financials/cashflow.md`.
+2. Add a new quarterly column with:
+   - Operating Cash Flow (`NetCashProvidedByOperatingActivities`)
+   - Capital Expenditures (`PaymentsToAcquirePropertyPlantAndEquipment` or similar)
+   - Free Cash Flow (Operating CF minus CapEx)
+3. If Q4 (10-K), also add the full-year annual totals.
+
+### 4d. Key Metrics (`financials/metrics.md`)
+
+1. Read the existing `research/{TICKER}/financials/metrics.md`.
+2. Update or append a new row/column with the latest quarter's derived metrics:
+   - Gross Margin (%)
+   - Operating Margin (%)
+   - Net Margin (%)
+   - Revenue Growth (YoY %)
+   - EPS Growth (YoY %)
+   - FCF per Share
+   - Return on Equity (if calculable from balance sheet data)
+3. Keep all historical metric values intact.
+
+### Important Notes
+- If any financials file does not yet exist, create it with the current quarter as the first column, following the format in `research/_SCHEMA.md`.
+- Always cite the source filing (10-Q or 10-K) and period end date in the table header.
+- Numbers should use consistent formatting: `$X.XB` for billions, `$X.XM` for millions, percentages to one decimal.
+
+## Step 5: Summary
 
 Print a summary:
 ```
@@ -147,13 +184,12 @@ Earnings analysis complete for {TICKER} — {YYYY} Q{X}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Revenue: $X.XB (YoY: +X.X%)
 EPS:     $X.XX (YoY: +X.X%)
-Thesis:  ✅ On Track / ⚠️ Monitor / 🔴 Review
 
 Created: research/{TICKER}/earnings/{YYYY}-Q{X}.md
-Updated: research/{TICKER}/financials/ (quarterly note)
+Updated: research/{TICKER}/financials/ (income, balance, cashflow, metrics)
 
 Next steps:
   - Review the earnings analysis
-  - Check thesis drift assessment
+  - Run /thesis-check {TICKER} to validate your thesis against this new data
   - Run /bear-case {TICKER} if concerns emerged
 ```

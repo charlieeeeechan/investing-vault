@@ -25,6 +25,8 @@ Validate a stored investment thesis against the latest available financial data.
 6. Read `research/{TICKER}/financials/metrics.md` and `research/{TICKER}/financials/income.md` for historical context.
 7. Read `research/{TICKER}/valuation.md` if it exists, for valuation context.
 
+**EDGAR Data Fetching:** See `research/_EDGAR-HELPERS.md` for the standard CIK lookup and XBRL fetch pattern used in Step 1.
+
 ## Step 1: Fetch Latest Financial Data
 
 Fetch the most recent quarterly and annual data from SEC EDGAR:

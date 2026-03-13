@@ -27,6 +27,8 @@ Build a summary data structure of all holdings with their thesis status.
 
 ## Step 2: Thesis Drift Check
 
+*Note: This is a lightweight check using existing research data. For holdings flagged as "Drifting" or "Broken," run `/thesis-check {TICKER}` for a deep validation with fresh SEC EDGAR data.*
+
 For each holding with existing research, assess:
 
 1. **Original Thesis:** What was the investment thesis from `overview.md`?
@@ -144,6 +146,7 @@ Write `portfolio/quarterly-reviews/{YYYY}-Q{X}.md`:
 - [ ] [Specific action — e.g., "Run /research TICK — no thesis on file"]
 - [ ] [Specific action — e.g., "Review TICK — thesis drifting, Q2 earnings will be decisive"]
 - [ ] [Specific action — e.g., "Evaluate correlation: TICK1 + TICK2 + TICK3 all exposed to ad market"]
+- [ ] Run /thesis-check {TICK} — thesis drifting, needs deep validation against latest data
 
 ## Appendix: Data Gaps
 
@@ -170,5 +173,11 @@ Concentration alerts: {N}
 Correlated clusters: {N}
 Action items: {N}
 
+Deep checks needed: {N} (run /thesis-check for each)
+  - /thesis-check {TICK1}
+  - /thesis-check {TICK2}
+
 Created: portfolio/quarterly-reviews/{YYYY}-Q{X}.md
 ```
+
+The "Deep checks needed" block should only be printed if there are holdings with Drifting or Broken status. Omit it entirely if all holdings are On Track or Monitor.

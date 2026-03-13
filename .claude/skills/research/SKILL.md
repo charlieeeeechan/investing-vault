@@ -14,6 +14,8 @@ Run a full 6-stage research pipeline for the given ticker and produce a complete
 3. Read `research/_SCHEMA.md` for financial data formatting conventions.
 4. Read `research/_TEMPLATE.md` for the expected folder structure and file templates.
 
+**EDGAR Data Fetching:** See `research/_EDGAR-HELPERS.md` for the standard CIK lookup and XBRL fetch pattern used in Stages 1-2.
+
 ## Stage 1: Company Identification
 
 Look up the company's CIK number from SEC EDGAR.
@@ -493,4 +495,16 @@ Next steps:
   - Review overview.md and refine the thesis
   - Run /earnings {TICKER} for latest quarterly data
   - Run /bear-case {TICKER} for contrarian analysis
+```
+
+Then print the following curation prompt:
+
+```
+⚠️  Review and customize before proceeding:
+  - [ ] Edit Investment Thesis in overview.md — make it YOUR thesis, not the AI's
+  - [ ] Adjust Key Metrics to Watch — add your personal thresholds and triggers
+  - [ ] Review Bull/Bear Case — add/remove points based on your conviction
+  - [ ] Sanity-check financials against a second source if this is a position you'll size into
+
+Then run: /bear-case {TICKER} (generates tripwires based on your customized thesis)
 ```
