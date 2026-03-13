@@ -36,7 +36,7 @@ This vault includes Claude Code skills (slash commands) that automate common res
 | Command | What it does |
 |---------|-------------|
 | `/research [TICKER]` | Full company research — business, moat, financials, valuation |
-| `/bear-case [TICKER]` | Generate a structured contrarian analysis with tripwires |
+| `/stress-test [TICKER]` | Stress-test your thesis — contrarian analysis + tripwires |
 | `/earnings [TICKER]` | Analyze latest quarterly earnings + update financials |
 | `/thesis-check [TICKER]` | Validate your thesis against latest SEC data |
 | `/portfolio-review` | Review all holdings for thesis drift and concentration risk |
@@ -57,7 +57,7 @@ The skills are designed to work together in a specific order. Understanding this
        ↓
   ✏️ Edit overview.md     Make the thesis YOURS — adjust bull/bear case,
        ↓                 set key metrics to watch, add personal thresholds
-/bear-case AAPL         Generate contrarian analysis + tripwires
+/stress-test AAPL       Stress-test your thesis — contrarian analysis + tripwires
                         (based on YOUR thesis, not the AI's)
 ```
 

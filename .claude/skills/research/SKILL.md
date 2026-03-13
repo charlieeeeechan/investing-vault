@@ -494,7 +494,7 @@ Missing fields: {list any fields not found}
 Next steps:
   - Review overview.md and refine the thesis
   - Run /earnings {TICKER} for latest quarterly data
-  - Run /bear-case {TICKER} for contrarian analysis
+  - Run /stress-test {TICKER} for contrarian analysis
 ```
 
 Then print the following curation prompt:
@@ -506,5 +506,5 @@ Then print the following curation prompt:
   - [ ] Review Bull/Bear Case — add/remove points based on your conviction
   - [ ] Sanity-check financials against a second source if this is a position you'll size into
 
-Then run: /bear-case {TICKER} (generates tripwires based on your customized thesis)
+Then run: /stress-test {TICKER} (generates tripwires based on your customized thesis)
 ```

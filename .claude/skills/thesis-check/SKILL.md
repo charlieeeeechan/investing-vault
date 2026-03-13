@@ -183,7 +183,7 @@ Create `research/{TICKER}/thesis-checks/{YYYY-MM-DD}.md`:
 
 - **None** — thesis on track, no changes needed
 - **Update thesis** — thesis holds but key assumptions need refreshing
-- **Deepen research** — run `/earnings` or `/bear-case` for updated analysis
+- **Deepen research** — run `/earnings` or `/stress-test` for updated analysis
 - **Review position** — thesis weakening, consider trimming or setting a stop
 - **Exit review** — thesis broken, evaluate whether to exit
 

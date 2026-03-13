@@ -191,5 +191,5 @@ Updated: research/{TICKER}/financials/ (income, balance, cashflow, metrics)
 Next steps:
   - Review the earnings analysis
   - Run /thesis-check {TICKER} to validate your thesis against this new data
-  - Run /bear-case {TICKER} if concerns emerged
+  - Run /stress-test {TICKER} if concerns emerged
 ```

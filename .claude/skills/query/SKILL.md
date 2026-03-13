@@ -13,7 +13,7 @@ Your research folder contains quality-verified data from:
 - Your own SEC EDGAR analysis (via `/research`)
 - Analyst reports you've read and vetted (via `/ingest`)
 - Earnings analysis (via `/earnings`)
-- Bear case deep dives (via `/bear-case`)
+- Bear case deep dives (via `/stress-test`)
 - Company comparisons (via `/compare`)
 
 This data is MORE trusted than random web results. Always use it first.

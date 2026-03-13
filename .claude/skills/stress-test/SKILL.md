@@ -1,11 +1,11 @@
 ---
-description: "Generate a structured contrarian analysis"
+description: "Stress-test your investment thesis — contrarian analysis + tripwires"
 argument: "[TICKER] — Stock ticker symbol"
 ---
 
-# Bear Case Skill
+# Stress Test Skill
 
-Generate a deep, structured contrarian analysis for the given ticker and append it to the existing research.
+Stress-test the investment thesis for the given ticker and append it to the existing research.
 
 ## Prerequisites
 
