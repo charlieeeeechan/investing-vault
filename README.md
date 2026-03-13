@@ -36,14 +36,59 @@ This vault includes Claude Code skills (slash commands) that automate common res
 | Command | What it does |
 |---------|-------------|
 | `/research [TICKER]` | Full company research — business, moat, financials, valuation |
-| `/earnings [TICKER]` | Analyze latest quarterly earnings |
-| `/bear-case [TICKER]` | Generate a structured contrarian analysis |
+| `/bear-case [TICKER]` | Generate a structured contrarian analysis with tripwires |
+| `/earnings [TICKER]` | Analyze latest quarterly earnings + update financials |
+| `/thesis-check [TICKER]` | Validate your thesis against latest SEC data |
+| `/portfolio-review` | Review all holdings for thesis drift and concentration risk |
 | `/compare [T1] [T2]` | Side-by-side comparison of two companies |
-| `/portfolio-review` | Review your portfolio for thesis drift and concentration risk |
-| `/ingest` | Ingest external research (analyst reports, articles) into company folders |
 | `/query` | Query across all stored research to answer investing questions |
+| `/ingest` | Ingest external research (analyst reports, articles) into company folders |
 
 **Try it:** Run `claude` and type `/research MSFT` to generate a full research package.
+
+### Recommended Workflow
+
+The skills are designed to work together in a specific order. Understanding this flow is key to getting the most out of the vault.
+
+#### First time researching a company
+
+```
+/research AAPL          Pull 5 years of SEC data, generate research folder
+       ↓
+  ✏️ Edit overview.md     Make the thesis YOURS — adjust bull/bear case,
+       ↓                 set key metrics to watch, add personal thresholds
+/bear-case AAPL         Generate contrarian analysis + tripwires
+                        (based on YOUR thesis, not the AI's)
+```
+
+> **Why the edit step matters:** `/research` generates an AI-written thesis as a starting point. If you skip editing it, every subsequent command validates assumptions you never agreed with. Take 5 minutes to make it yours.
+
+#### After each earnings release
+
+```
+/earnings AAPL          Fetch latest quarterly data, update financials
+       ↓
+/thesis-check AAPL      Check: is your thesis still holding?
+                        (On Track → Monitor → Drifting → Broken)
+```
+
+`/earnings` only handles data — it pulls the quarter, updates your tables, and stops. `/thesis-check` does the thinking — it reads your thesis, checks each metric and tripwire against fresh SEC data, and gives you a verdict.
+
+#### Quarterly portfolio review
+
+```
+/portfolio-review       Check ALL holdings at once — drift, concentration,
+       ↓                correlated bets, conviction ranking
+/thesis-check [TICK]    Deep-dive any holding flagged as Drifting or Broken
+```
+
+#### Anytime
+
+```
+/compare AAPL MSFT      Side-by-side comparison of two companies
+/query "question"       Ask anything across your stored research
+/ingest                 File an analyst report or article into the right folder
+```
 
 ### Python Dependencies
 

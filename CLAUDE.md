@@ -49,6 +49,25 @@ research/{TICKER}/
 - Decision journal: `decisions/` folder
 - Macro themes: `macro/themes/` and `macro/weekly/`
 
+## Skill Workflow
+
+Skills are designed to work in this order. Each skill has a single job — no duplication.
+
+```
+Initial:   /research → user edits thesis → /bear-case
+Ongoing:   /earnings → /thesis-check
+Periodic:  /portfolio-review → /thesis-check (for flagged holdings)
+Anytime:   /compare, /query, /ingest
+```
+
+- `/research` creates the research folder with an AI-generated thesis. **The user must edit overview.md to make the thesis their own before proceeding.**
+- `/bear-case` builds contrarian analysis and tripwires based on the user's customized thesis.
+- `/earnings` fetches new quarterly data and updates financials incrementally. It does NOT check the thesis.
+- `/thesis-check` validates the stored thesis against latest SEC data. This is the only skill that assesses thesis status.
+- `/portfolio-review` does a lightweight drift check across all holdings using stored data. Flags holdings that need `/thesis-check`.
+
+When a user runs a skill out of order (e.g., `/thesis-check` before `/research`), guide them to the right starting point.
+
 ## Rules
 
 1. **No buy/sell recommendations.** Present analysis, not advice. Say "the data suggests" not "you should buy."
